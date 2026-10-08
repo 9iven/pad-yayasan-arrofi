@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('kepentingan_umum', function (Blueprint $table) {
             $table->id();
+            $table->date('tanggal');
+            $table->string('kategori_kegiatan');
+            $table->text('deskripsi');
+            $table->decimal('jumlah', 15, 2);
+            $table->string('bukti_foto')->nullable();
+            $table->boolean('tampil_di_landing')->default(false);
+            $table->text('keterangan')->nullable();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->onDelete('set null');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
