@@ -24,4 +24,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+if (app()->environment('local')) {
+    Route::get('/dev-login-dashboard', function () {
+        Illuminate\Support\Facades\Auth::loginUsingId(1);
+        return redirect()->route('dashboard');
+    });
+}
+
 require __DIR__.'/auth.php';
